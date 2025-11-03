@@ -14,9 +14,9 @@ class DecisionPhase:
         """
         Selects the single best candidate for deletion from the list of plans.
         """
-        print("=== Level 2: Decision Phase ===")
+        #print("=== Level 2: Decision Phase ===")
         if not potential_plans:
-            print("No viable plans found - skipping deletion.")
+            #print("No viable plans found - skipping deletion.")
             return None
 
         # Sort plans by benefit in descending order
@@ -26,5 +26,5 @@ class DecisionPhase:
         winning_benefit = winning_plan['benefit']
         winning_candidate = winning_plan['candidate']
 
-        print(f"Selected candidate: {winning_candidate.attribute.col} with benefit: {winning_benefit}")
+        #print(f"Selected candidate: {winning_candidate.attribute.col} with benefit: {winning_benefit}")
         return winning_candidate

@@ -7,8 +7,8 @@ def connect_to_database():
         connection = mysql.connector.connect(
             host='localhost',        # Localhost for local MySQL instance
             user='root',    # Your MySQL username (e.g., root)
-            password='uci@dbh@2084',# Your MySQL password
-            database='RTF25' # Database you want to connect to
+            password='my_password',# Your MySQL password
+            database='adult' # Database you want to connect to
         )
  
         # Check if the connection is successful

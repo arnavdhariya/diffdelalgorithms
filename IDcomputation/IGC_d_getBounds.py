@@ -7,7 +7,7 @@ from IDcomputation.IGC_c_get_global_domain_mysql import AttributeDomainComputati
 
 class DatabaseConfig:
     """Database configuration and connection management."""
-    def __init__(self, host='localhost', user='root', password='uci@dbh@2084', database='RTF25'):
+    def __init__(self, host='localhost', user='root', password='my_password', database='RTF25'):
         self.config = {
             'host': host,
             'user': user,
@@ -374,23 +374,23 @@ Examples:
         # Process first attribute
         known_value = infer.get_known_value(args.table, args.attr2, args.key_cols, args.key_vals)
         bounds = infer.get_bounds_int_int(args.attr1, args.table, args.attr2, args.table, known_value)
-        print(f"\nInferred domain for {args.attr1} when {args.attr2} = {known_value}")
-        print(f"Key columns: {args.key_cols}")
-        print(f"Key values: {args.key_vals}")
-        print(f"Bounds: {bounds}")
+        #print(f"\nInferred domain for {args.attr1} when {args.attr2} = {known_value}")
+        #print(f"Key columns: {args.key_cols}")
+        #print(f"Key values: {args.key_vals}")
+        #print(f"Bounds: {bounds}")
 
-        print("\n" + "="*50 + "\n")
+        #print("\n" + "="*50 + "\n")
 
         # Process second attribute
         known_value = infer.get_known_value(args.table, args.attr1, args.key_cols, args.key_vals)
         bounds = infer.get_bounds_int_int(args.attr2, args.table, args.attr1, args.table, known_value)
-        print(f"Inferred domain for {args.attr2} when {args.attr1} = {known_value}")
-        print(f"Key columns: {args.key_cols}")
-        print(f"Key values: {args.key_vals}")
-        print(f"Bounds: {bounds}")
+        #print(f"Inferred domain for {args.attr2} when {args.attr1} = {known_value}")
+        #print(f"Key columns: {args.key_cols}")
+        #print(f"Key values: {args.key_vals}")
+        #print(f"Bounds: {bounds}")
 
     except Exception as e:
-        print(f"Error: {e}")
+        #print(f"Error: {e}")
         return 1
     finally:
         if infer:

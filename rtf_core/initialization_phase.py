@@ -13,7 +13,7 @@ if project_root not in sys.path:
 from cell import Cell, Attribute
 from fetch_row import RTFDatabaseManager
 from IDcomputation.IGC_c_get_global_domain_mysql import AttributeDomainComputation
-from IDcomputation.IGC_e_get_bound_new import DomianInferFromDC
+from IDcomputation.IGC_e_get_bound_new import DomianInferFromDC #name mistake
 from rtf_core.config import get_dataset_info
 
 class InitializationManager:
@@ -52,12 +52,13 @@ class InitializationManager:
                 dc_module = import_module(dc_module_path)
                 return getattr(dc_module, 'denial_constraints', [])
         except ImportError as e:
-            print(f"Error loading denial constraints: {e}")
+            pass
+            ##print(f"Error loading denial constraints: {e}")
         return []
 
     def initialize(self):
         """Perform all initialization steps."""
-        print("--- Initialization ---")
+        ##print("--- Initialization ---")
         row_data = self._get_sample_row_data()
         
         # Create target cell
@@ -76,28 +77,31 @@ class InitializationManager:
         self.initial_restricted_domain_size = self._compute_domain_size_for_deletion_set(self.current_deletion_set)
         self.current_domain_size = self.initial_restricted_domain_size
 
-        print(f"Target cell: {self.target_cell.attribute.col} = '{self.target_cell.value}'")
-        print(f"Original domain size: {self.original_domain_size}")
-        print(f"Initial restricted domain size (with only target cell deleted): {self.current_domain_size}")
-        if self.original_domain_size > 0:
-            print(f"Initial domain restriction ratio: {self.current_domain_size / self.original_domain_size:.3f}")
+        # #print(f"Target cell: {self.target_cell.attribute.col} = '{self.target_cell.value}'")
+        # #print(f"Original domain size: {self.original_domain_size}")
+        # #print(f"Initial restricted domain size (with only target cell deleted): {self.current_domain_size}")
+        #if self.original_domain_size > 0:
+        #    pass
+            ##print(f"Initial domain restriction ratio: {self.current_domain_size / self.original_domain_size:.3f}")
 
     def _get_sample_row_data(self) -> Dict[str, Any]:
         """Fetch a sample row data for the target cell."""
+        ##print(self.dataset_info['primary_table'])
         with RTFDatabaseManager(self.dataset) as db:
             row = db.fetch_row(self.target_cell_info['key'])
         return row
     
     def _discover_constraint_cells(self, row_data: Dict[str, Any]):
         """Discover and store all cells that have constraints with the target."""
-        print("Discovering constraint cells...")
+        ##print("Discovering constraint cells...")
         target_attr = self.target_cell.attribute.col
         related_attrs = set()
-        
+        self.target_denial_constraints = []
         for dc in self.denial_constraints:
             attrs_in_dc = set(pred.split('.')[-1] for pred in [p[0] for p in dc] + [p[2] for p in dc if isinstance(p[2], str)])
             if target_attr in attrs_in_dc:
                 related_attrs.update(attrs_in_dc)
+                self.target_denial_constraints.append(dc)
 
         related_attrs.discard(target_attr)
         
@@ -106,7 +110,7 @@ class InitializationManager:
                 constraint_cell = Cell(Attribute(self.table_name, attr), self.target_cell_info['key'], row_data[attr])
                 self.constraint_cells.add(constraint_cell)
 
-        print(f"Found {len(self.constraint_cells)} constraint cells: {[c.attribute.col for c in self.constraint_cells]}")
+        ##print(f"Found {len(self.constraint_cells)} constraint cells: {[c.attribute.col for c in self.constraint_cells]}")
     
     def get_original_domain_size(self) -> int:
         """Get original domain size of the target attribute."""
@@ -118,14 +122,14 @@ class InitializationManager:
                 return domain_info['max'] - domain_info['min']
             return 16  # Fallback for 'education'
         except Exception as e:
-            print(f"Could not get original domain size: {e}")
+            ##print(f"Could not get original domain size: {e}")
             return 16
 
     def has_active_constraints(self) -> bool:
         """Check if there are still active constraints on the target cell."""
         active_count = sum(1 for c in self.constraint_cells if c not in self.current_deletion_set)
         has_active = active_count > 0
-        print(f"Active constraints on target: {active_count}/{len(self.constraint_cells)}")
+        ##print(f"Active constraints on target: {active_count}/{len(self.constraint_cells)}")
         return has_active
         
     def check_privacy_threshold(self) -> bool:
@@ -136,7 +140,7 @@ class InitializationManager:
         privacy_ratio = self.current_domain_size / self.original_domain_size
         met = privacy_ratio >= self.threshold
 
-        print(f"Privacy check: {self.current_domain_size}/{self.original_domain_size} = {privacy_ratio:.3f} (threshold: {self.threshold}) -> {'[OK]' if met else '[FAIL]'}")
+        ##print(f"Privacy check: {self.current_domain_size}/{self.original_domain_size} = {privacy_ratio:.3f} (threshold: {self.threshold}) -> {'[OK]' if met else '[FAIL]'}")
         return met
 
     def execute_deletion(self, candidate: Cell):
@@ -144,8 +148,8 @@ class InitializationManager:
         self.current_deletion_set.add(candidate)
         self.current_domain_size = self._compute_domain_size_for_deletion_set(self.current_deletion_set)
         self.iterations += 1
-        print(f"Added to deletion set: {candidate.attribute.col}")
-        print(f"New domain size: {self.current_domain_size}")
+        ##print(f"Added to deletion set: {candidate.attribute.col}")
+        ##print(f"New domain size: {self.current_domain_size}")
 
     def _compute_domain_size_for_deletion_set(self, deletion_set: Set[Cell]) -> int:
         """Compute domain size based on the current deletion set."""
@@ -210,7 +214,7 @@ class InitializationManager:
 
         except Exception as e:
             # Fallback in case of errors
-            print(f"Warning: Could not compute restriction factor due to error: {e}")
+            ##print(f"Warning: Could not compute restriction factor due to error: {e}")
             restricted_domain_size = original_domain_size
 
         # Step 4: Calculate the restriction factor

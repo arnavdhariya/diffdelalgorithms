@@ -23,7 +23,7 @@ def fetch_database_state(target_eid, delset):
     if "Salary" in delset:
          cursor.execute("UPDATE Tax SET Salary = NULL WHERE EID = %s", (target_eid,))
          connection.commit()
-         print(f"Salary for EID {target_eid} has been set to NULL.")
+         #print(f"Salary for EID {target_eid} has been set to NULL.")
     # Fetch the state of Employee, Payroll, and Tax tables for the given EID
     database_state = {
         "Employee": {
@@ -90,9 +90,9 @@ def get_target_cell_location(database_state, target_eid):
 
 # # Update the Salary of EID 2 to NULL in the Tax table
 # database_state = fetch_database_state(target_eid, delset)
-# print("Database State:", database_state)
+# #print("Database State:", database_state)
 # filtered_data = filter_data(database_state, delset) 
-# print("Filtered Data:", filtered_data)
+# #print("Filtered Data:", filtered_data)
 # target_cell_location = get_target_cell_location(database_state, target_eid)
-# print("Target Cell Location:", target_cell_location)
+# #print("Target Cell Location:", target_cell_location)
 

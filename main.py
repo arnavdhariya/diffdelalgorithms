@@ -13,8 +13,9 @@ from dataclasses import dataclass
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from cell import Attribute, Cell
-from InferenceGraph.bulid_hyperedges import build_hyperedge_map, fetch_row
-from InferenceGraph.build_hypergraph import build_hypergraph_tree
+#error in the code, I can fix it, I want to ask if this is just an error on my side or for everyone that needs to be changed
+from InferenceGraph.bulid_hyperedges import build_hyperedge_map, fetch_row #names have changed in these files as build_hyperedge map is a part of a class
+#fetch row is also not there, it is an independent file and it is in RTFDatabaseManager class
 from InferenceGraph.optimal_delete import optimal_delete, compute_costs, find_node
 from InferenceGraph.one_pass_optimal_delete import compute_deletion_set as one_pass_deletion
 

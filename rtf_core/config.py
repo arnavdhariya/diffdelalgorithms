@@ -39,7 +39,7 @@ for path in [PATHS['output'], PATHS['logs']]:
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root', 
-    'password': 'uci@dbh@2084',  # Centralized - was hardcoded in 5+ files
+    'password': 'my_password',  # Centralized - was hardcoded in 5+ files
     'ssl_disabled': True,
     'charset': 'utf8mb4'
 }
@@ -123,7 +123,7 @@ DATASETS = {
     
     'rtf25': {
         'name': 'rtf25',
-        'database_name': 'RTF25',
+        'database_name': 'rtf25',
         'description': 'RTF25 Synthetic Enterprise Dataset',
         'primary_table': 'Tax',
         'key_column': 'EId',
@@ -289,39 +289,40 @@ def validate_dataset(dataset_name):
 # ============================================================================
 
 if __name__ == "__main__":
-    print("Enhanced RTF Configuration")
-    print("=" * 60)
+    #print("Enhanced RTF Configuration")
+    #print("=" * 60)
     
     # Show available datasets
     datasets = list_available_datasets()
-    print(f"\nAvailable datasets ({len(datasets)}): {datasets}")
+    #print(f"\nAvailable datasets ({len(datasets)}): {datasets}")
     
     # Test core functions for each dataset
-    print(f"\nDataset Information:")
+    #print(f"\nDataset Information:")
     for dataset in datasets[:3]:  # Test first 3
         try:
             db_config = get_database_config(dataset)
             dataset_info = get_dataset_info(dataset)
             
-            print(f"\n{dataset.upper()}:")
-            print(f"  Database: {db_config['database']}")
-            print(f"  Primary Table: {get_primary_table(dataset)}")
-            print(f"  Key Column: {get_key_column(dataset)}")
-            print(f"  All Tables: {get_all_tables(dataset)}")
-            print(f"  Domain File: {get_domain_file_path(dataset).name}")
-            print(f"  DC File: {get_dc_config_path(dataset).name}")
+            #print(f"\n{dataset.upper()}:")
+            #print(f"  Database: {db_config['database']}")
+            #print(f"  Primary Table: {get_primary_table(dataset)}")
+            #print(f"  Key Column: {get_key_column(dataset)}")
+            #print(f"  All Tables: {get_all_tables(dataset)}")
+            #print(f"  Domain File: {get_domain_file_path(dataset).name}")
+            #print(f"  DC File: {get_dc_config_path(dataset).name}")
             
             # Validate dataset
             is_valid, message = validate_dataset(dataset)
-            print(f"  Valid: {is_valid} ({message})")
+            #print(f"  Valid: {is_valid} ({message})")
             
         except Exception as e:
-            print(f"  {dataset} -> ERROR: {e}")
+            pass
+            #print(f"  {dataset} -> ERROR: {e}")
     
     # Test backward compatibility
-    print(f"\nBackward Compatibility:")
-    print(f"  DATABASES: {DATABASES}")
-    print(f"  OUTPUT_DIR: {OUTPUT_DIR}")
-    print(f"  DEFAULT_TARGET_EID: {DEFAULT_TARGET_EID}")
+    #print(f"\nBackward Compatibility:")
+    #print(f"  DATABASES: {DATABASES}")
+    #print(f"  OUTPUT_DIR: {OUTPUT_DIR}")
+    #print(f"  DEFAULT_TARGET_EID: {DEFAULT_TARGET_EID}")
     
-    print(f"\nConfiguration ready for gradual migration!")
+    #print(f"\nConfiguration ready for gradual migration!")

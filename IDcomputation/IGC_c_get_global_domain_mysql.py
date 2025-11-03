@@ -55,10 +55,10 @@ class AttributeDomainComputation:
         self.domain_file = get_domain_file_path(dataset_name)
         self.domain_map = {}
         
-        print(f"Initialized domain computation for dataset: {dataset_name}")
-        print(f"Database: {self.dataset_info['database_name']}")
-        print(f"Tables: {self.dataset_info['tables']}")
-        print(f"Domain file: {self.domain_file}")
+        #print(f"Initialized domain computation for dataset: {dataset_name}")
+        #print(f"Database: {self.dataset_info['database_name']}")
+        #print(f"Tables: {self.dataset_info['tables']}")
+        #print(f"Domain file: {self.domain_file}")
 
     def get_db_connection(self):
         """Get database connection using central configuration."""
@@ -83,20 +83,20 @@ class AttributeDomainComputation:
     def compute_and_save_domains(self, force_recompute: bool = False) -> None:
         """Compute domains for all columns and save to file."""
         if self.domain_file.exists() and not force_recompute:
-            print(f"Domain map already exists at {self.domain_file}")
-            print("Use --force to recompute or delete the file manually")
+            #print(f"Domain map already exists at {self.domain_file}")
+            #print("Use --force to recompute or delete the file manually")
             return
 
-        print(f"Computing domains for dataset: {self.dataset_name}")
-        print(f"Database: {self.dataset_info['database_name']}")
-        print(f"Tables to process: {self.dataset_info['tables']}")
+        #print(f"Computing domains for dataset: {self.dataset_name}")
+        #print(f"Database: {self.dataset_info['database_name']}")
+        #print(f"Tables to process: {self.dataset_info['tables']}")
         
         connection = self.get_db_connection()
         cursor = connection.cursor()
         
         # Process each table in the dataset configuration
         for table_name in self.dataset_info['tables']:
-            print(f"\nProcessing table: {table_name}")
+            #print(f"\nProcessing table: {table_name}")
             
             # Get column information for this specific table
             cursor.execute("""
@@ -108,10 +108,10 @@ class AttributeDomainComputation:
             
             columns = cursor.fetchall()
             if not columns:
-                print(f"Warning: No columns found for table {table_name}")
+                #print(f"Warning: No columns found for table {table_name}")
                 continue
             
-            print(f"Found {len(columns)} columns: {[col[0] for col in columns]}")
+            #print(f"Found {len(columns)} columns: {[col[0] for col in columns]}")
 
             for column_name, data_type in columns:
                 self._process_column(cursor, table_name, column_name, data_type)
@@ -134,10 +134,12 @@ class AttributeDomainComputation:
             elif data_type in self.STRING_TYPES:
                 self._process_string_column(cursor, table_name, escaped_column, key)
             else:
-                print(f"Skipping column {column_name} with unsupported type: {data_type}")
+                pass
+                #print(f"Skipping column {column_name} with unsupported type: {data_type}")
                 
         except Exception as e:
-            print(f"Error processing column {table_name}.{column_name}: {e}")
+            pass
+            #print(f"Error processing column {table_name}.{column_name}: {e}")
 
     def _process_numeric_column(self, cursor, table_name: str, escaped_column: str, key: tuple) -> None:
         """Process a numeric column."""
@@ -157,7 +159,7 @@ class AttributeDomainComputation:
             'min': min_val,
             'max': max_val
         }
-        print(f"Added numeric domain for {key}: min={min_val}, max={max_val}")
+        #print(f"Added numeric domain for {key}: min={min_val}, max={max_val}")
 
     def _process_string_column(self, cursor, table_name: str, escaped_column: str, key: tuple) -> None:
         """Process a string column."""
@@ -172,7 +174,7 @@ class AttributeDomainComputation:
             'type': 'string',
             'values': values
         }
-        print(f"Added string domain for {key} with {len(values)} distinct values")
+        #print(f"Added string domain for {key} with {len(values)} distinct values")
 
     def _save_domain_map(self) -> None:
         """Save domain map to JSON file."""
@@ -186,9 +188,9 @@ class AttributeDomainComputation:
         with open(self.domain_file, 'w') as f:
             json.dump(flat_domain_map, f, indent=2)
         
-        print(f"\nDomain computation completed!")
-        print(f"Processed {len(self.domain_map)} columns")
-        print(f"Domain map saved to: {self.domain_file}")
+        #print(f"\nDomain computation completed!")
+        #print(f"Processed {len(self.domain_map)} columns")
+        #print(f"Domain map saved to: {self.domain_file}")
 
     def load_existing_domains(self) -> Dict[str, Any]:
         """Load existing domain map from file."""
@@ -219,8 +221,8 @@ class AttributeDomainComputation:
         if not self.domain_map:
             self.domain_map = self.load_existing_domains()
         
-        print(f"\nDomain Summary for {self.dataset_name}:")
-        print("=" * 50)
+        #print(f"\nDomain Summary for {self.dataset_name}:")
+        #print("=" * 50)
         
         tables = {}
         for (table, column), domain in self.domain_map.items():
@@ -231,13 +233,13 @@ class AttributeDomainComputation:
             tables[table]['columns'].append(column)
         
         for table, info in tables.items():
-            print(f"\nTable: {table}")
-            print(f"  Columns: {len(info['columns'])}")
-            print(f"  Numeric: {info['numeric']}, String: {info['string']}")
+            #print(f"\nTable: {table}")
+            #print(f"  Columns: {len(info['columns'])}")
+            #print(f"  Numeric: {info['numeric']}, String: {info['string']}")
             if len(info['columns']) <= 10:
-                print(f"  Column names: {info['columns']}")
+                pass#print(f"  Column names: {info['columns']}")
             else:
-                print(f"  Sample columns: {info['columns'][:5]}... (+{len(info['columns'])-5} more)")
+                pass#print(f"  Sample columns: {info['columns'][:5]}... (+{len(info['columns'])-5} more)")
 
 
 def main():
@@ -264,7 +266,7 @@ Examples:
     
     parser.add_argument('--summary-only',
                        action='store_true',
-                       help='Only print summary of existing domains')
+                       help='Only #print summary of existing domains')
     
     parser.add_argument('--validate-only',
                        action='store_true',
@@ -272,17 +274,17 @@ Examples:
     
     args = parser.parse_args()
     
-    print("RTF Domain Computation")
-    print("=" * 40)
+    #print("RTF Domain Computation")
+    #print("=" * 40)
     
     # Validate dataset first
     is_valid, message = validate_dataset(args.dataset)
     if not is_valid:
-        print(f"Error: Dataset validation failed: {message}")
+        #print(f"Error: Dataset validation failed: {message}")
         return 1
     
     if args.validate_only:
-        print(f"✓ Dataset '{args.dataset}' configuration is valid")
+        #print(f"✓ Dataset '{args.dataset}' configuration is valid")
         return 0
     
     try:
@@ -298,7 +300,7 @@ Examples:
         return 0
         
     except Exception as e:
-        print(f"Error: {e}")
+        #print(f"Error: {e}")
         return 1
 
 

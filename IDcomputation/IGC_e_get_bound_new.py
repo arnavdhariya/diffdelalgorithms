@@ -30,9 +30,10 @@ class DomianInferFromDC:
         if result:
             data_type = result['DATA_TYPE']
             data_type = data_type.lower()
-            print(f"Data type for {table_name}.{column_name}: {data_type}")
+            #print(f"Data type for {table_name}.{column_name}: {data_type}")
         else:
-            print(f"No data type found for {table_name}.{column_name}")
+            pass
+            #print(f"No data type found for {table_name}.{column_name}")
     
     def get_target_dc_list(self, table_name, column_name):
         # Get the list of denial constraints for the specified column
@@ -44,7 +45,7 @@ class DomianInferFromDC:
                 if column_name == pred_col:
                     target_dc_list.append(dc)
                     break
-        print(f"Denial constraints for {table_name}.{column_name}: {target_dc_list}")
+        #print(f"Denial constraints for {table_name}.{column_name}: {target_dc_list}")
         return target_dc_list
 
     def get_target_tuple(self, table_name, key_attr, key_value):
@@ -56,12 +57,12 @@ class DomianInferFromDC:
             WHERE {key_attr} = '{key_value}'
         """)
         result = cursor.fetchone()
-        print(result['age'])
+        #print(result['age'])
         return result          
     
     def get_bound_from_DC(self, target_dc_list, target_tuple, target_column, table_name):
         if not isinstance(target_tuple[target_column], int):
-            print(f"Skipping: '{target_column}' is not of type int.")
+            #print(f"Skipping: '{target_column}' is not of type int.")
             return
 
         bounds = []
@@ -78,11 +79,11 @@ class DomianInferFromDC:
                     other_preds.append(predicate)
 
             if not target_predicate:
-                print(f"No target predicate found in DC: {dc}")
+                #print(f"No target predicate found in DC: {dc}")
                 continue
 
-            print(f"\nTarget predicate: {target_predicate}")
-            print(f"Other predicates: {other_preds}")
+            #print(f"\nTarget predicate: {target_predicate}")
+            #print(f"Other predicates: {other_preds}")
 
             # Build WHERE clauses for LHS and RHS
             lhs_conditions = []
@@ -101,8 +102,8 @@ class DomianInferFromDC:
             lhs_where_clause = " AND ".join(lhs_conditions)
             rhs_where_clause = " AND ".join(rhs_conditions)
 
-            print(f"LHS WHERE clause: {lhs_where_clause}")
-            print(f"RHS WHERE clause: {rhs_where_clause}")
+            #print(f"LHS WHERE clause: {lhs_where_clause}")
+            #print(f"RHS WHERE clause: {rhs_where_clause}")
 
             # Determine direction based on target predicate
             target_op = target_predicate[1]
@@ -119,15 +120,15 @@ class DomianInferFromDC:
                 sql_query_left = f"SELECT MIN({target_col_name}) FROM {self.db.config['database']}.{table_name} WHERE {lhs_where_clause};"
                 sql_query_right= f"SELECT MAX({target_col_name}) FROM {self.db.config['database']}.{table_name} WHERE {rhs_where_clause};"
 
-            print(f"SQL Query (left): {sql_query_left}")
-            print(f"SQL Query (right): {sql_query_right}")
+            #print(f"SQL Query (left): {sql_query_left}")
+            #print(f"SQL Query (right): {sql_query_right}")
 
             # Execute both queries and collect bounds
             left_bound = self.execute_query(sql_query_left)
             right_bound = self.execute_query(sql_query_right)
             #bounds are (int, int). Ignore (None, None)
             if left_bound is None and right_bound is None:
-                print(f"Skipping: Both bounds are None for DC index {dc_index}.")
+                #print(f"Skipping: Both bounds are None for DC index {dc_index}.")
                 continue
             else:
                 if left_bound is None:
@@ -135,10 +136,10 @@ class DomianInferFromDC:
                 elif right_bound is None:
                     right_bound = left_bound
                 bounds.append((left_bound, right_bound))
-                print(f"Bounds for DC index {dc_index} and {dc}: {left_bound}, {right_bound}")
+                #print(f"Bounds for DC index {dc_index} and {dc}: {left_bound}, {right_bound}")
                 
 
-        print(f"\nAll bounds for {target_column}: {bounds}")
+        #print(f"\nAll bounds for {target_column}: {bounds}")
         self.intersect_bounds(bounds)
         return bounds
     
@@ -150,7 +151,7 @@ class DomianInferFromDC:
         max_val = min(b[1] for b in bounds_list)  # Intersection of maximums
         
         if min_val <= max_val:
-            # print(f"Final bounds: {min_val, max_val}")
+            # #print(f"Final bounds: {min_val, max_val}")
             return (f"Final blound: {min_val, max_val}")
         else:
             return None  # Empty intersection
@@ -185,7 +186,7 @@ if __name__ == "__main__":
                                       table_name=args.table_name,
                                       target_column=args.target_column_name) 
     intersect = domain_infer.intersect_bounds(bound_list)
-    print(intersect)
+    #print(intersect)
 
     
 

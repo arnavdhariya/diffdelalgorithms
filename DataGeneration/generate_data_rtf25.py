@@ -56,7 +56,7 @@ class DataGenerator:
         return mysql.connector.connect(
             host='localhost',
             user='root',
-            password='uci@dbh@2084',
+            password='my_password',
             database='RTF25'
         )
     
@@ -76,9 +76,14 @@ class DataGenerator:
 
         for payroll in self.payroll_data:
             cursor.execute("""
-                INSERT INTO Payroll (EId, SalPrHr, WrkHr, Dept)
-                VALUES (%s, %s, %s, %s)
-            """, (payroll['EId'], payroll['SalPrHr'], payroll['WrkHr'], payroll['Dept']))
+                INSERT INTO payroll (employee_id, name, salary, department, date_paid)
+                VALUES (%s, %s, %s, %s, CURDATE())
+            """, (
+                payroll['EId'],  # matches employee_id
+                f"Employee_{payroll['EId']}",  # name (you can customize)
+                payroll['SalPrHr'] * payroll['WrkHr'],  # total salary
+                payroll['Dept']  # department
+            ))
 
         for tax in self.tax_data:
             cursor.execute("""

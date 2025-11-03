@@ -40,7 +40,7 @@ for path in [PATHS['output'], PATHS['logs']]:
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root', 
-    'password': 'uci@dbh@2084',
+    'password': 'my_password',
     'ssl_disabled': True,
     'charset': 'utf8mb4'
 }

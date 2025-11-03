@@ -20,7 +20,7 @@ def execute_ddl_from_file(cursor, path):
 
 
 class AdultDatasetCleaner:
-    def __init__(self, input_file, ddl_file, insert_sql_file, host='localhost', user='root', password='uci@dbh@2084', database=None):
+    def __init__(self, input_file, ddl_file, insert_sql_file, host='localhost', user='root', password='my_password', database=None):
         self.input_file = input_file
         self.ddl_file = ddl_file
         self.insert_sql_file = insert_sql_file
@@ -131,15 +131,18 @@ class AdultDatasetCleaner:
 
 
 def main():
+    input_file = "/Users/adhariya/src/RTF25/DataGeneration/adult/ddl/adult_data.csv"
+    ddl_file = "/Users/adhariya/src/RTF25/DataGeneration/adult/ddl/adult_data.sql"
+    insert_sql_file = "/Users/adhariya/src/RTF25/DataGeneration/adult/sql/insert_adult_data.sql"
     parser = argparse.ArgumentParser(description='Clean Adult dataset and save to MySQL database')
-    parser.add_argument('input_file', help='Path to the input CSV file (adult.csv)')
-    parser.add_argument('ddl_file', help='Path to the DDL SQL file for table creation')
-    parser.add_argument('insert_sql_file', help='Path to the INSERT SQL file')
-    
+    parser.add_argument('input_file', input_file)
+    parser.add_argument('ddl_file', ddl_file)
+    parser.add_argument('insert_sql_file', insert_sql_file)
+    #
     # Optional arguments
     parser.add_argument('--host', default='localhost', help='MySQL host (default: localhost)')
     parser.add_argument('--user', default='root', help='MySQL user (default: root)')
-    parser.add_argument('--password', default='uci@dbh@2084', help='MySQL password')
+    parser.add_argument('--password', default='my_password', help='MySQL password')
     parser.add_argument('--database', help='MySQL database name (default: derived from input filename)')
     
     args = parser.parse_args()

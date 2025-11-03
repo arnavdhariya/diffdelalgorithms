@@ -35,8 +35,8 @@ if __name__ == "__main__":
     # Intersect and Union example
     R1 = [(1, 5), (10, 15)]
     R2 = [(3, 12)]
-    print("Union:", union_ranges(R1, R2))  # [(1, 15)]
-    print("Intersect:", intersect_ranges(R1, R2))  # [(3, 5), (10, 12)]
+    #print("Union:", union_ranges(R1, R2))  # [(1, 15)]
+    #print("Intersect:", intersect_ranges(R1, R2))  # [(3, 5), (10, 12)]
 
 
  

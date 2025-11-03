@@ -15,13 +15,13 @@ class OrderedAnalysisPhase:
         Finds and analyzes potential deletion plans.
         Returns a list of potential plans (benefits and candidates).
         """
-        print("=== Level 1: Ordered Analysis Phase ===")
+        #print("=== Level 1: Ordered Analysis Phase ===")
         active_constraints = self._find_active_constraints()
         ordered_constraints = self._order_constraints_by_restrictiveness(active_constraints)
 
         potential_plans = []
         for i, constraint in enumerate(ordered_constraints):
-            print(f"Analyzing constraint {i+1}/{len(ordered_constraints)}: {constraint['attrs']}")
+            #print(f"Analyzing constraint {i+1}/{len(ordered_constraints)}: {constraint['attrs']}")
 
             candidate = self._select_candidate_from_constraint(constraint)
             if candidate:
@@ -31,7 +31,7 @@ class OrderedAnalysisPhase:
                     'candidate': candidate,
                     'constraint': constraint
                 })
-                print(f"    Candidate: {candidate.attribute.col}, Benefit: +{benefit}")
+                #print(f"    Candidate: {candidate.attribute.col}, Benefit: +{benefit}")
 
         return potential_plans
 
