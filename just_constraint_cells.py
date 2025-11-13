@@ -38,3 +38,4 @@ if __name__ == '__main__':
     # Just test one
     print_constraint_cells({'key': 2, 'attribute': 'education'})
 
+
