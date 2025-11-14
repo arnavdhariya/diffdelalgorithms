@@ -2,12 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-
-# ------------------------------------------------------------------
-# --- IMPORTANT: Update this variable with your file's path ---
-csv_file_path = '/Users/adhariya/src/RTF25/rtf_core/Algorithms/algorithm1_tests_csv_files/all_dataset_edge_data.csv'  # <-- PUT YOUR FILE PATH HERE
-# ------------------------------------------------------------------
-
+csv_file_path = '/Users/adhariya/src/RTF25/rtf_core/Algorithms/algorithm1_tests_csv_files/all_dataset_edge_data.csv'
 try:
     # Read the data from the CSV file
     df = pd.read_csv(csv_file_path)

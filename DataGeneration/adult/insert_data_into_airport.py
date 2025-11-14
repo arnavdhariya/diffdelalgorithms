@@ -3,7 +3,7 @@ import csv
 
 DB_NAME = "airport"
 TABLE_NAME = "airports" # change this to the table name
-CSV_PATH = "/Users/adhariya/src/RTF25/DataGeneration/adult/cleaned_airport.csv"   # <-- change this path
+CSV_PATH = "/DataGeneration/csv_files/cleaned_airport.csv"  # <-- change this path
 USER = "root"
 PASSWORD = "my_password" # change password
 HOST = "localhost"

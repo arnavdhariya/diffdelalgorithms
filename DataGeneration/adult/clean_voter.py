@@ -1,7 +1,7 @@
 import pandas as pd
 
-input_file = 'ncvoter.csv'
-output_file = 'cleaned_ncvoter.csv'
+input_file = '../csv_files/ncvoter.csv'
+output_file = '../csv_files/cleaned_ncvoter.csv'
 
 # Read CSV without automatic dtype inference, keep everything as string
 df = pd.read_csv(input_file, dtype=str)

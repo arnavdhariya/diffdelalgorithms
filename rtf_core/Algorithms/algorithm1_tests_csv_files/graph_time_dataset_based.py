@@ -2,7 +2,6 @@ import pandas as pd
 import io
 import matplotlib.pyplot as plt
 
-# Your data embedded as a string
 data = """name,time,boundary_edges,internal_edges,internal_cells
 airport,6.985664367675781e-05,40,38,18
 hospital,6.508827209472656e-05,40,40,13

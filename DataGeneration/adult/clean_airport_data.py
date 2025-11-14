@@ -100,11 +100,11 @@ class AirportDatasetCleaner:
 # Add this method to your AdultDatasetCleaner class
 
 if __name__ == "__main__":
-    AirportDatasetCleaner = AirportDatasetCleaner(input_file='/Users/adhariya/src/RTF25/DataGeneration/adult/airport.csv')
+    AirportDatasetCleaner = AirportDatasetCleaner(input_file= '/DataGeneration/csv_files/airport.csv')
     AirportDatasetCleaner.load_data()
     AirportDatasetCleaner.clean_data()
     AirportDatasetCleaner.fix_coordinate_data()
-    AirportDatasetCleaner.save_cleaned_data(output_file='cleaned_airport.csv')
+    AirportDatasetCleaner.save_cleaned_data(output_file= '../csv_files/cleaned_airport.csv')
     
 
 

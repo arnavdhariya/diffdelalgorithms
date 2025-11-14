@@ -1,14 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
-# --- CONFIGURATION ---
-# !!! REPLACE 'your_data_file.csv' with the actual name of your file !!!
 FILE_NAME = 'airport_explanations_data.csv'
-
-
-# ---------------------
-
 def plot_time_by_attribute(file_path):
     """Reads data from a CSV, plots Time vs. Attribute, sorted by Time."""
     try:

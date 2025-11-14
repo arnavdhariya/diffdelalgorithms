@@ -2,10 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-# --- CONFIGURATION ---
-# !!! REPLACE 'your_data_file.csv' with the actual name of your file !!!
 FILE_NAME = 'nc_voter_explanations_data.csv'
-# ---------------------
 
 def plot_explanations_and_depth(file_path):
     """Reads data from a CSV and plots a grouped bar chart for Explanations and Depth."""

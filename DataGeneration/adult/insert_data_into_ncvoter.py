@@ -5,7 +5,7 @@ import csv
 # --- CONFIG ---
 DB_NAME = "ncvoter"
 TABLE_NAME = "ncvoter_data"
-CSV_PATH = "/Users/adhariya/src/RTF25/DataGeneration/adult/ncvoter.csv"
+CSV_PATH = "/DataGeneration/csv_files/ncvoter.csv"
 USER = "root"
 PASSWORD = "my_password"
 HOST = "localhost"

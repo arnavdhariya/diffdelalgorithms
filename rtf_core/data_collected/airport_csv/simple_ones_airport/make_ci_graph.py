@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # -----------------------------
 # 1. Load CSV
 # -----------------------------
-csv_path = "/Users/adhariya/src/RTF25/rtf_core/voter_csv/simple_ones_voter/ncvoter_100_random_cell_data_simple.csv"  # <-- replace with your CSV path
+csv_path = "/rtf_core/data_collected/voter_csv/simple_ones_voter/ncvoter_100_random_cell_data_simple.csv"  # <-- replace with your CSV path
 data = pd.read_csv(csv_path)
 
 # -----------------------------

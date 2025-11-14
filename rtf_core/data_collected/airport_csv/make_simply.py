@@ -16,7 +16,7 @@ def process_csv_files():
         print(f"Created directory: {output_folder}")
 
     # List all files in the current directory
-    files_in_directory = os.listdir('.')
+    files_in_directory = os.listdir('')
 
     # Loop through each file in the directory
     for filename in files_in_directory:
@@ -25,7 +25,7 @@ def process_csv_files():
             print(f"Processing '{filename}'...")
 
             # Construct the full path to the input file
-            input_filepath = os.path.join('.', filename)
+            input_filepath = os.path.join('', filename)
 
             try:
                 # Read the CSV file into a pandas DataFrame

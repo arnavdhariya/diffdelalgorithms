@@ -4,7 +4,7 @@ import csv
 # --- CONFIG ---
 DB_NAME = "tax"
 TABLE_NAME = "tax_data"
-CSV_PATH = "/Users/adhariya/src/RTF25/DataGeneration/adult/tax.csv"   # <-- change this path
+CSV_PATH = "/DataGeneration/csv_files/tax.csv"  # <-- change this path
 USER = "root"
 PASSWORD = "my_password"
 HOST = "localhost"
