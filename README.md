@@ -347,6 +347,12 @@ This research implementation is licensed under the **MIT License** - see the [LI
 **Commercial Use**: Contact authors for commercial licensing arrangements.
 
 ---
+## **Running Experiments** 
+Rough Instructions
+- First, make sure that the dataset is running (fix the password and username problem).
+- go to collect data file in rtf_core/algorithms, run any method to collect data for each algorithm in the time/performance metrics
+- go to graph data file in rtf_core/graphs, run the corresponding method for each algorithm for the metric chosen above.
+- Graphs will be saved in a .jpeg file format, and data will be stored in a .csv file format. 
 
 ## 🙏 **Acknowledgments**
 
